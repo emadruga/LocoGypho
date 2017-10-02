@@ -1,14 +1,40 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="secondary">
     <ion-title>
-      Ionic Blank
+      <ion-searchbar color="primary" placeholder="enter giphy search..."
+	[(ngModel)]="giphyQueryValue" [formControl]="giphyQueryControl" value="">
+      </ion-searchbar>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openSettings()">
+	<ion-icon name="settings"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="shuffleGiphyQuery()">
+	<ion-icon name="shuffle"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <div *ngFor="let post of giphyService.posts">
+      <ion-item (click)="playVideo($event, post)" no-lines style="background-color: #000;">
+        <img src="assets/images/loader.gif" *ngIf="post.showLoader" class="video-loader" />
+        <video loop [src]="post.url" [poster]="post.snapshot">
+        </video>
+      </ion-item>
+      <ion-list-header (click)="showComments(post)" style="text-align: left;">
+        {{post.title}}
+      </ion-list-header>
+    </div>
+
+    <ion-item *ngIf="giphyService.loading" no-lines style="text-align: center;">
+      <img src="assets/images/loader.gif" style="width: 50px" />
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button full color="light" (click)="loadMore()">Load More... </button>
+
 </ion-content>
