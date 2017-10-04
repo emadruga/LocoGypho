@@ -1,25 +1,37 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
   selector: 'page-settings',
-  templateUrl: 'settings.html',
+  templateUrl: 'settings.html'
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  perPage: number;
+  sort: string;
+  giphyQuery: string;
+
+  constructor(public view: ViewController, public navParams: NavParams) {
+
+    this.perPage = this.navParams.get('perPage');
+    this.sort = this.navParams.get('sort');
+    this.giphyQuery = this.navParams.get('giphyQuery');
+    
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  save(): void {
+
+  	let settings = {
+  		perPage: this.perPage,
+  		sort: this.sort,
+  		giphyQuery: this.giphyQuery
+  	};
+
+  	this.view.dismiss(settings);
   }
 
+  close(): void {
+  	this.view.dismiss();
+  }
 }

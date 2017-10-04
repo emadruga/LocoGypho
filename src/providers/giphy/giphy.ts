@@ -25,10 +25,10 @@ export class GiphyProvider {
 
     fetchData(): void {
 
-	let query =  this.query.replace(/\s+/g,'+');
+	let query_str =  this.query.replace(/\s+/g,'+');
 
 	//Build the URL that will be used to access the API based on the users current preferences
-	let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + this.myAPI_key + '&q=' + query + '&limit='
+	let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + this.myAPI_key + '&q=' + query_str + '&limit='
 	    + this.perPage + '&offset=' + this.offset + '&rating=G&lang=en'
 
 	console.log('URL is: ' + url);
@@ -64,6 +64,7 @@ export class GiphyProvider {
 		// }
 		    
 		this.posts[i].url = post.images.looping.mp4;
+		this.posts[i].permalink = post.bitly_gif_url;
 		this.posts[i].snapshot = post.images["480w_still"].url;
 
 		if( 'source_tld' in post && post.source_tld != ""){
@@ -77,8 +78,9 @@ export class GiphyProvider {
 
 
 	}, (err) => {
-	    //Fail silently, in this case the loading spinner will just continue to display
+	    //Fail silently, in this case the loading spinner will cease to display
 	    console.log("query doesn't exist!");
+	    this.loading = false;
 	});
     }
 

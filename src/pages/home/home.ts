@@ -73,7 +73,7 @@ export class HomePage {
 
     showComments(post): void {
 	console.log("TODO:  showComments()");
-	let browser = this.iab.create('http://giphy.com' + post.data.permalink, '_system');
+	let browser = this.iab.create(post.permalink);
     }
 
     openSettings(): void {
@@ -133,7 +133,7 @@ export class HomePage {
 
     shuffleGiphyQuery(): void {
 
-	var favorites = ["mechanical_gifs", "HorrorGifs", "gifextra", "TrippyGIFs"];
+	var favorites = ["naughty", "hate", "wink", "sad"];
 	var giphyQuery = favorites[Math.floor(Math.random() * favorites.length)];
 	var msg = "GiphyQuery is " + giphyQuery;
 	console.log(msg);
