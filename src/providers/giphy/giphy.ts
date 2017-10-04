@@ -25,7 +25,10 @@ export class GiphyProvider {
 
     fetchData(): void {
 
-	let query_str =  this.query.replace(/\s+/g,'+');
+	let query_str = 'happy';
+	if (this.query !== undefined) {
+	    query_str = this.query.replace(/\s+/g,'+');
+	}
 
 	//Build the URL that will be used to access the API based on the users current preferences
 	let url = 'https://api.giphy.com/v1/gifs/search?api_key=' + this.myAPI_key + '&q=' + query_str + '&limit='
