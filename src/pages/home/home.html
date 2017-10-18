@@ -18,8 +18,8 @@
 
 <ion-content padding>
   <ion-list>
-    <div *ngFor="let post of giphyService.posts">
-      <ion-item (click)="playVideo($event, post)" no-lines style="background-color: #000;">
+    <div  *ngFor="let post of giphyService.posts">
+      <ion-item  class="col" (click)="playVideo($event, post)" no-lines style="background-color: #fff;">
         <img src="assets/images/loader.gif" *ngIf="post.showLoader" class="video-loader" />
         <video loop [src]="post.url" [poster]="post.snapshot">
         </video>
