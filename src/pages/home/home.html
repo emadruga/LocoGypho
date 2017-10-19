@@ -17,23 +17,26 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <div  *ngFor="let post of giphyService.posts">
-      <ion-item  class="col" (click)="playVideo($event, post)" no-lines style="background-color: #fff;">
-        <img src="assets/images/loader.gif" *ngIf="post.showLoader" class="video-loader" />
-        <video loop [src]="post.url" [poster]="post.snapshot">
-        </video>
-      </ion-item>
-      <ion-list-header (click)="showComments(post)" style="text-align: left;">
-        {{post.title}}
-      </ion-list-header>
-    </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 col-md-4 col-xl-3
+	       *ngFor="let post of giphyService.posts">
+	<div no-lines (click)="playVideo($event, post)" style="background-color: #fff;">
+          <img src="assets/images/loader.gif" *ngIf="post.showLoader" class="image-container" />
+          <video loop  [src]="post.url" [poster]="post.snapshot">
+	  </video>
+	</div>
+	<div (click)="showComments(post)" class="app-font"  style="text-align: center;">
+          {{post.title}}
+	</div>
+      </ion-col>
+    </ion-row>
 
     <ion-item *ngIf="giphyService.loading" no-lines style="text-align: center;">
       <img src="assets/images/loader.gif" style="width: 50px" />
     </ion-item>
 
-  </ion-list>
+  </ion-grid>
 
   <button ion-button full color="light" (click)="loadMore()">Load More... </button>
 
